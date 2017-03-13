@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <!-- CONFIG -->
+    <constant name="struts.devMode"                          value="false"                                                                                                    />
+    <constant name="struts.i18n.encoding"                    value="utf-8"                                                                                                    />
+    <constant name="struts.i18n.reload"                      value="true"                                                                                                     />
+    <constant name="struts.serve.static"                     value="true"                                                                                                     />
+    <constant name="struts.serve.static.browserCache"        value="false"                                                                                                    />
+    <constant name="struts.enable.DynamicMethodInvocation"   value="true"                                                                                                     />
+    <constant name="struts.ognl.allowStaticMethodAccess"     value="true"                                                                                                     />
+    <constant name="struts.configuration.xml.reload"         value="true"                                                                                                     />
+    <constant name="struts.action.extension"                 value="do"                                                                                                       />
+    <constant name="struts.mapper.alwaysSelectFullNamespace" value="false"                                                                                                    />
+    <constant name="struts.enable.SlashesInActionNames"      value="true"                                                                                                     />
+    <constant name="struts.multipart.maxSize"                value="21474836480"                                                                                              />
+    <constant name="struts.configuration.files"              value="struts-default.xml,struts-plugin.xml,struts.xml"                                                          />
+    <constant name="struts.custom.i18n.resources"            value="/resource/config/isnotnull/engine/properties/message,/resource/config/isnotnull/engine/properties/config" />
+    
+    
+    <!-- COMMON -->
+    <package name="extends-common" extends="struts-default">
+
+        <!-- RESULT -->
+        <result-types>
+            <result-type name="dispatchResult" class="kr.co.isnotnull.engine.result.DispatchResult" /> <!-- DEFAULT RESULT -->
+            <result-type name="messageResult"  class="kr.co.isnotnull.engine.result.MessageResult"  /> <!-- MESSAGE RESULT -->
+            <result-type name="loginResult"    class="kr.co.isnotnull.engine.result.LoginResult"    /> <!-- LOGIN   RESULT -->
+            <result-type name="submitResult"   class="kr.co.isnotnull.engine.result.SubmitResult"   /> <!-- SUBMIT  RESULT -->
+            <result-type name="jsonResult"     class="kr.co.isnotnull.engine.result.JsonResult"     /> <!-- JSON    RESULT -->
+        </result-types>
+        
+        <!-- INTERCEPTER -->
+        <interceptors>
+            
+            <interceptor name="initializeIntercepter"   class="kr.co.isnotnull.engine.intercepter.InitializeIntercepter"  />
+            <interceptor name="uploadInterceptor"       class="kr.co.isnotnull.engine.intercepter.UploadInterceptor"      />
+            <interceptor name="multiUploadInterceptor"  class="kr.co.isnotnull.engine.intercepter.MultiUploadInterceptor" />
+            
+            <!-- COMMON INTERCEPTER -->
+            <interceptor-stack name="defaultIntercepter">
+                <interceptor-ref name="staticParams"          />
+                <interceptor-ref name="initializeIntercepter" /> 
+            </interceptor-stack>
+            
+            <!-- UPLOAD INTERCEPTER -->
+            <interceptor-stack name="fileUploadIntercepter">
+                <interceptor-ref name="uploadInterceptor"     />
+                <interceptor-ref name="staticParams"          />
+                <interceptor-ref name="initializeIntercepter" /> 
+            </interceptor-stack>
+            
+            <!-- MULTI UPLOAD INTERCEPTER -->
+            <interceptor-stack name="multiFileUploadIntercepter">
+                <interceptor-ref name="multiUploadInterceptor"  />
+                <interceptor-ref name="staticParams"            />
+                <interceptor-ref name="initializeIntercepter"   /> 
+            </interceptor-stack>
+        </interceptors>   
+        
+        <!-- DEFAULT INTERCEPTER -->
+        <default-interceptor-ref name="defaultIntercepter" />
+        
+        <!-- GLOBAL RESULT -->
+        <global-results>
+            <result name="_login"   type="loginResult">/user/jsp/common/submit.jsp</result>
+            <result name="_submit"  type="submitResult">/user/jsp/common/submit.jsp</result>
+            <result name="_message" type="messageResult">/user/jsp/common/message.jsp</result>
+        </global-results>
+        
+    </package>
+
+    <!-- ACTION LIST -->
+    <include file="/resource/config/isnotnull/biz/action/action-Common.xml"                        /><!-- COMMON           -->
+    <include file="/resource/config/isnotnull/biz/action/action-Sample.xml"                        /><!-- SAMPLE           -->
+    <include file="/resource/config/diquest/common/engine/action/download/action-FileDownload.xml" /><!-- COMMON DOWNLOAD  -->
+    <include file="/resource/config/diquest/user/biz/action/main/action-Main.xml"                  /><!-- USER_MAIN        -->
+    <include file="/resource/config/diquest/user/biz/action/search/action-Search.xml"              /><!-- USER_SEARCH      -->
+    <include file="/resource/config/diquest/user/biz/action/rank/action-Rank.xml"                  /><!-- USER_RANK        -->
+    <include file="/resource/config/diquest/user/biz/action/share/action-Share.xml"                /><!-- USER_SHARE       -->
+    <include file="/resource/config/diquest/user/biz/action/individual/action-SeenBefore.xml"      /><!-- USER_SEENBEFORE  -->
+    <include file="/resource/config/diquest/admin/biz/action/login/action-Login.xml"               /><!-- ADMIN LOGIN      -->
+    <include file="/resource/config/diquest/admin/biz/action/search/action-Search.xml"             /><!-- ADMIN_SEARCH     -->
+    <include file="/resource/config/diquest/admin/biz/action/notice/action-Notice.xml"             /><!-- ADMIN_NOTICE     -->
+</struts>

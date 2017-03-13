@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <!-- 
+        SKILL PARAM LIST
+                
+        1. message
+           - _message_type
+              - historyback              : 메시지 출력 후 뒤로 이동
+              - redirect                 : 메시지 출력 후 result url 이동
+           - _message_code               : message.properties에 등록 한 메세지 코드
+           - _message_url                : 메시지 출력 후 이동 할 url
+           - _message_not_transfer_param : 기본 값 false, 파라미터를 넘기고 싶지 않다면 true
+           
+        2. paging
+           - _page_size                  : 페이지 갯수
+           
+        3. uploader
+           - _file_size                  : 파일 크기 제한(ex. 10), MB단위
+           - _allow_file                 : 허용 파일 타입(ex. *.avi *.wmv)
+           
+        4. login
+           - _required_login             : 로그인 확인 false/true (기본값 true)
+           
+        5. submit
+           - _submit_type                : 기본 값 null, 팝업으로 열고 싶다면 popup
+           - _submit_url                 : 전송
+     -->
+    
+    <package name="sample" extends="extends-common">
+
+        <!-- 샘플 목록 -->
+	    <action name="user/sample/sampleList" class="kr.co.isnotnull.biz.sample.action.SampleAction" method="selectSampleLit">
+	        <param name="_page_size"     >2</param>
+	        <param name="_required_login">false</param>
+            <result type="dispatchResult">/user/jsp/sample/sampleList.jsp</result>
+	    </action> 
+        
+        <!-- 샘플 조회 화면 -->
+        <action name="user/sample/sampleView" class="kr.co.isnotnull.biz.sample.action.SampleAction" method="selectSample">
+            <param name="_required_login">false</param>
+            <result type="dispatchResult">/user/jsp/sample/sampleView.jsp</result>
+        </action>
+        
+        <!-- 샘플 수정 화면 -->
+        <action name="user/sample/sampleEdit" class="kr.co.isnotnull.biz.sample.action.SampleAction" method="selectSample">
+            <param name="_required_login">false</param>
+            <result type="dispatchResult">/user/jsp/sample/sampleEdit.jsp</result>
+        </action>
+        
+        <!-- 샘플 등록 화면 -->
+        <action name="user/sample/sampleForm" class="kr.co.isnotnull.engine.action.AbstractAction" method="dispatch">
+            <param name="_required_login">false</param>
+            <result type="dispatchResult">/user/jsp/sample/sampleForm.jsp</result>
+        </action>
+        
+        <!-- 샘플 등록 -->
+        <action name="user/sample/insertSample" class="kr.co.isnotnull.biz.sample.action.SampleAction" method="insertSample">
+            <param name="_required_login">false</param>
+            <param name="_message_url">/user/sample/sampleList.do</param>
+            <param name="_message_type">redirect</param>
+            <param name="_message_code">message.insert</param>
+            <result type="dispatchResult"/>
+        </action>
+        
+        <!-- 샘플 수정 -->
+        <action name="user/sample/updateSample" class="kr.co.isnotnull.biz.sample.action.SampleAction" method="updateSample">
+            <param name="_required_login">false</param>
+            <param name="_message_url">/user/sample/sampleView.do</param>
+            <param name="_message_type">redirect</param>
+            <param name="_message_code">message.update</param>
+            <result type="dispatchResult"/>
+        </action>
+        
+        <!-- 샘플 삭제 -->
+        <action name="user/sample/deleteSample" class="kr.co.isnotnull.biz.sample.action.SampleAction" method="deleteSample">
+            <param name="_required_login">false</param>
+            <param name="_message_url">/user/sample/sampleList.do</param>
+            <param name="_message_type">redirect</param>
+            <param name="_message_code">message.delete</param>
+            <result type="dispatchResult"/>
+        </action>
+	    
+	    <!-- 샘플 업로드 화면 -->
+        <action name="user/sample/sampleUploadForm" class="kr.co.isnotnull.engine.action.AbstractAction" method="dispatch">
+            <param name="_required_login">false</param>
+            <param name="_file_kind">P</param>
+            <param name="_file_size">10</param>
+            <param name="_allow_file">*.avi *.wmv *.jpg *.gif *.png *.wav *.mp3 *.mp4</param>
+            <result type="dispatchResult">/user/jsp/sample/sampleUploadForm.jsp</result>
+        </action>
+        
+        <!-- 샘플 업로드 후 등록 -->
+        <action name="user/sample/uploadSample" class="kr.co.isnotnull.biz.sample.action.SampleAction" method="uploadSample">
+            <param name="_required_login">false</param>
+            <param name="_message_url">/user/sample/sampleList.do</param>
+            <param name="_message_type">redirect</param>
+            <param name="_message_code">message.insert</param>
+            <result type="dispatchResult"/>
+        </action>
+        
+        <!-- 샘플 다운로드 -->
+        <action name="user/sample/download" class="kr.co.isnotnull.biz.sample.action.SampleAction" method="downloadSample">
+            <param name="_required_login">false</param>
+            <result type="dispatchResult"/>
+        </action>
+        
+        <!-- 샘플 JSON -->
+        <action name="user/sample/json" class="kr.co.isnotnull.biz.sample.action.SampleAction" method="jsonSample">
+            <param name="_required_login">false</param>
+            <result type="jsonResult" />
+        </action>
+        
+	    <!-- 샘플 업로드 화면 -->
+        <action name="user/sample/sampleMultiUploadForm" class="kr.co.isnotnull.engine.action.AbstractAction" method="dispatch">
+            <param name="_required_login">false</param>
+            <param name="_upload_id">sample</param>
+            <param name="_file_path">test/</param>
+            <param name="_file_size">10</param>
+            <param name="_allow_file">*.*</param>
+            <param name="_list_rows">5</param>
+            <param name="_limit_total">5</param>
+            <result type="dispatchResult">/user/jsp/sample/sampleMultiUploadForm.jsp</result>
+        </action>
+        
+	</package>
+        
+</struts>

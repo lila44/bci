@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="PAGE">
+
+	<!-- ORACLE VERSION START -->
+	<sql id="HEADER">
+        SELECT *
+          FROM ( SELECT PAGE_INFO.*, FLOOR( (ROWNUM - 1) / #_page_size# + 1) PAGE, ROWNUM
+                   FROM (
+    </sql>
+
+
+	<sql id="FOOTER">
+						) PAGE_INFO
+        ) PARE_RESULT
+        WHERE PAGE = <isEmpty    property="_page_index">1</isEmpty>
+                     <isNotEmpty property="_page_index">#_page_index#</isNotEmpty>
+    </sql>
+    <!-- ORACLE VERSION END -->
+
+</sqlMap>

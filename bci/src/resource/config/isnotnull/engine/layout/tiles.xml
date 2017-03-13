@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+ 
+<tiles-definitions>
+
+    <!-- Sample Layout -->
+    <definition name="/user/sample/*"  template="/user/jsp/common/include/main-layout.jsp"  >
+        <put-attribute name="header"    value="/user/jsp/common/include/main-header.jsp"   />
+        <put-attribute name="top"       value="/user/jsp/common/include/main-top.jsp"      />
+        <put-attribute name="content"   value=""                                           />
+        <put-attribute name="bottom"    value="/user/jsp/common/include/bottom.jsp"        />
+    </definition>
+    
+    <!-- 사용자 Main Layout -->
+    <definition name="/user/main/*"  template="/user/jsp/common/include/main-layout.jsp"    >
+        <put-attribute name="header"    value="/user/jsp/common/include/main-header.jsp"   />
+        <put-attribute name="top"       value="/user/jsp/common/include/main-top.jsp"      />
+        <put-attribute name="content"   value=""                                           />
+        <put-attribute name="bottom"    value="/user/jsp/common/include/bottom.jsp"        />
+    </definition>
+    
+    <!-- 사용자 common Layout -->
+    <definition name="/*/common/*"  template="/user/jsp/common/include/main-layout.jsp"    >
+        <put-attribute name="header"    value="/user/jsp/common/include/main-header.jsp"   />
+        <put-attribute name="top"       value="/user/jsp/common/include/main-top.jsp"      />
+        <put-attribute name="content"   value=""                                           />
+        <put-attribute name="bottom"    value="/user/jsp/common/include/bottom.jsp"        />
+    </definition>
+
+    <!-- 사용자 Search Layout -->
+    <definition name="/user/search/*"  template="/user/jsp/common/include/search-layout.jsp">
+        <put-attribute name="header"    value="/user/jsp/common/include/header.jsp"        />
+        <put-attribute name="top"       value="/user/jsp/common/include/top.jsp"           />
+        <put-attribute name="right"     value="/user/jsp/common/include/right.jsp"         />
+        <put-attribute name="bottom"    value="/user/jsp/common/include/bottom.jsp"        />
+    </definition>
+    
+    <!-- 사용자 Rank Layout -->
+    <definition name="/user/rank/*"  template="/user/jsp/common/include/search-layout.jsp"  >
+        <put-attribute name="header"    value="/user/jsp/common/include/header.jsp"        />
+        <put-attribute name="top"       value="/user/jsp/common/include/top.jsp"           />
+        <put-attribute name="right"     value="/user/jsp/common/include/right.jsp"         />
+        <put-attribute name="bottom"    value="/user/jsp/common/include/bottom.jsp"        />
+    </definition>
+    
+    <!-- 사용자 Popup Layout -->
+    <definition name="/user/popup/*/*"  template="/user/jsp/common/include/popup-layout.jsp"  >
+        <put-attribute name="header"    value="/user/jsp/common/include/popup_header.jsp"    />
+        <put-attribute name="bottom"    value="/user/jsp/common/include/popup_bottom.jsp"    />
+    </definition>
+    
+    <!-- 로그인 Layout -->
+    <definition name="/admin/login/*"  template="/admin/jsp/common/include/login-layout.jsp"  >
+      	<put-attribute name="header"    value="/admin/jsp/common/include/header.jsp"         />
+        <put-attribute name="content"   value=""                                             />
+    </definition>
+    
+    <!-- 관리자 Layout -->
+    <definition name="/admin/search/*"  template="/admin/jsp/common/include/admin-layout.jsp" >
+      	<put-attribute name="header"    value="/admin/jsp/common/include/header.jsp"         />
+      	<put-attribute name="top"       value="/admin/jsp/common/include/top.jsp"            />
+        <put-attribute name="content"   value=""                                             />
+        <put-attribute name="bottom"    value="/admin/jsp/common/include/bottom.jsp"         />
+    </definition>
+    
+    <!-- 관리자 Popup Layout -->
+    <definition name="/admin/popup/*/*"  template="/admin/jsp/common/include/popup-layout.jsp" >
+      	<put-attribute name="header"    value="/admin/jsp/common/include/header.jsp"         />
+      	<put-attribute name="top"       value="/admin/jsp/common/include/popup-top.jsp"      />
+        <put-attribute name="content"   value=""                                             />
+    </definition>
+    
+    <!-- 관리자 Notice Layout -->
+    <definition name="/admin/notice/*"  template="/admin/jsp/common/include/admin-layout.jsp" >
+      	<put-attribute name="header"    value="/admin/jsp/common/include/header.jsp"         />
+      	<put-attribute name="top"       value="/admin/jsp/common/include/top.jsp"            />
+        <put-attribute name="content"   value=""                                             />
+        <put-attribute name="bottom"    value="/admin/jsp/common/include/bottom.jsp"         />
+    </definition>
+    
+</tiles-definitions>

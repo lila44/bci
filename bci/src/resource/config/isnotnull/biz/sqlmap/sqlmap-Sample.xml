@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Sample">
+
+    <!-- 샘플 목록 -->
+	<select id="selectSampleList" resultClass="org.apache.commons.collections.map.CaseInsensitiveMap">
+        <include refid="PAGE.HEADER"/>
+            SELECT  SEQ
+		           ,USER_ID
+		           ,USER_NAME
+		           ,CONTENTS
+		           ,TO_CHAR(TO_DATE(CREATED_TIME, 'YYYYMMDDHH24MISS'), 'YYYY.MM.DD') AS CREATED_TIME
+		      FROM  TEST_SAMPLE
+		     ORDER  BY SEQ DESC
+        <include refid="PAGE.FOOTER"/>
+	</select>
+	
+	<!-- 샘플 목록 갯수 -->
+	<select id="selectSampleCount" resultClass="int">
+        SELECT COUNT(SEQ)
+          FROM TEST_SAMPLE 
+    </select>
+	
+	<!-- 샘플 조회 -->
+	<select id="selectSample" resultClass="org.apache.commons.collections.map.CaseInsensitiveMap">
+        SELECT  SEQ
+               ,USER_ID
+               ,USER_NAME
+               ,CONTENTS
+               ,CREATED_TIME 
+          FROM  TEST_SAMPLE
+         WHERE  SEQ = #seq#
+    </select>
+	
+	<!-- 샘플 등록 -->
+	<insert id="insertSample">
+	    <selectKey keyProperty="seq" resultClass="int">
+            SELECT NVL(MAX(SEQ), 0) + 1 
+              FROM TEST_SAMPLE
+        </selectKey>
+        INSERT 
+          INTO TEST_SAMPLE(  SEQ 
+                            ,USER_ID
+                            ,USER_NAME
+                            ,CONTENTS
+        ) 
+        VALUES            (  #seq#
+                            ,#user_id#
+                            ,#user_name#
+                            ,#contents#
+        )
+    </insert>
+    
+    <!-- 샘플 수정 -->
+    <update id="updateSample">
+        UPDATE  TEST_SAMPLE
+           SET  USER_ID   = #user_id#
+               ,USER_NAME = #user_name#
+               ,CONTENTS  = #contents#
+         WHERE  SEQ       = #seq# 
+    </update>
+    
+    <!-- 샘플 삭제 -->
+    <delete id="deleteSample">
+        DELETE 
+          FROM TEST_SAMPLE
+         WHERE SEQ = #seq# 
+    </delete>
+	
+</sqlMap>

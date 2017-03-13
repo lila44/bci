@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <!-- 
+        SKILL PARAM LIST
+                
+        1. message
+           - _message_type
+              - historyback : 메시지 출력 후 뒤로 이동
+              - redirect    : 메시지 출력 후 result url 이동
+           - _message_code  : message.properties에 등록 한 메세지 코드
+           - _message_url   : 메시지 출력 후 이동 할 url
+           
+        2. paging
+           - _page_size     : 페이지 갯수
+           
+        3. editor
+           - _file_size     : 파일 크기 제한(ex. 10), MB단위
+           - _allow_file    : 허용 파일 타입(ex. *.avi *.wmv)
+     -->
+    
+    <package name="common" extends="extends-common">
+    
+        <!-- 로그인 -->
+        <action name="common/login" class="kr.co.isnotnull.engine.action.AbstractAction" method="dispatch">
+            <result type="dispatchResult">/user/jsp/common/login.jsp</result>
+        </action>
+        
+        <!-- 샘플 업로드 -->
+        <action name="common/upload" class="kr.co.isnotnull.engine.action.AbstractAction" method="dispatch">
+            <interceptor-ref name="fileUploadIntercepter" /> 
+            <result type="dispatchResult"/>
+        </action>
+
+        <!-- 멀티 샘플 업로드 -->
+        <action name="common/multiUpload" class="kr.co.isnotnull.engine.action.AbstractAction" method="dispatch">
+            <interceptor-ref name="multiFileUploadIntercepter" /> 
+            <result type="dispatchResult"/>
+        </action>
+	</package>
+        
+</struts>
